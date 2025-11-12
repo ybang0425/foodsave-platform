@@ -1,0 +1,8 @@
+name: foodsave-platform
+type: nodejs
+version: 18  # <--- 이 부분이 Node.js 18 버전을 사용하도록 강제합니다.
+build:
+  - npm install
+  - cd client && npm install && npm run build
+run: npm start
+port: 5000
