@@ -37,21 +37,31 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const donationRoutes = require('./routes/donations');
-const foodBankRoutes = require('./routes/foodBanks');
-const businessRoutes = require('./routes/businesses');
-const matchingRoutes = require('./routes/matching');
-const subscriptionRoutes = require('./routes/subscriptions');
-const regulationRoutes = require('./routes/regulations');
+const { 
+  businessesRouter, 
+  foodBanksRouter, 
+  matchingRouter, 
+  subscriptionsRouter, 
+  regulationsRouter 
+} = require('./routes/index');
 
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/donations', donationRoutes);
-app.use('/api/food-banks', foodBankRoutes);
-app.use('/api/businesses', businessRoutes);
-app.use('/api/matching', matchingRoutes);
-app.use('/api/subscriptions', subscriptionRoutes);
-app.use('/api/regulations', regulationRoutes);
+app.use('/api/businesses', businessesRouter);
+app.use('/api/food-banks', foodBanksRouter);
+app.use('/api/matching', matchingRouter);
+app.use('/api/subscriptions', subscriptionsRouter);
+app.use('/api/regulations', regulationsRouter);
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'healthy',
+    timestamp: new Date().toISOString()
+  });
+});
 
 // AdminJS Setup
 const adminOptions = {
